@@ -81,6 +81,30 @@ public abstract class YamlUtil {
 		return entry;
 	}
 	
+	public static String[][][] sortArray(String[][][] entries) {
+		int j;
+		boolean flag = true;
+		String temp;
+		String[] lines;
+		for (int i = 0; i < entries.length; i++) {
+			lines = convertEntryToLines(entries[0]);
+			
+			while (flag) {
+				flag = false;
+				for (j = 0; j < lines.length - 1; j++) {
+					if (lines[j].compareToIgnoreCase(lines[j + 1]) > 0) {
+						temp = lines[j];
+						lines[j] = lines[j + 1];
+						lines[j + 1] = temp;
+						flag = true;
+					}
+				}
+			}
+			entries[0] = convertLinesToEntry(lines);
+		}
+		return entries;
+	}
+	
 	public static String[][] appendItem(String[][] entry) {
 		String[][] newentry;
 		if (entry == null) {
@@ -94,6 +118,22 @@ public abstract class YamlUtil {
 			try {
 				newentry[0][newentry[0].length - 1] = "new";
 				newentry[1][newentry[0].length - 1] = "item";
+			} catch (Exception e) { System.out.println("oops" + e.toString()); }
+		}
+		return newentry;
+	}
+	
+	public static String[] appendItem(String[] entry) {
+		String[] newentry;
+		if (entry == null) {
+			newentry = new String[] { "empty" };
+		} else {
+			newentry = new String[entry.length + 1];
+			for (int i = 0; i < entry.length; i++) {
+				newentry[i] = entry[i];
+			}
+			try {
+				newentry[newentry.length - 1] = "empty";
 			} catch (Exception e) { System.out.println("oops" + e.toString()); }
 		}
 		return newentry;

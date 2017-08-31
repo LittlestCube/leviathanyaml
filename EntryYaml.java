@@ -202,4 +202,21 @@ public class EntryYaml {
 			buffw.close();
 		} catch (Exception safsdfsdfasdfasdfasdfasdfasdfasdf) { System.err.println("Whoops! Error in function writeAllEntries(): " + safsdfsdfasdfasdfasdfasdfasdfasdf.toString()); }
 	}
+	
+	public void writeNewEntryYaml(String[][][] entries) {
+		try {
+			String File = "";
+			
+			for (int i = 0; i < entries.length; i++) {
+				File += i + ":\n";
+				for (int j = 0; j < entries[i][0].length; j++) {
+					File += "  " + entries[i][0][j] + ": " + entries[i][1][j] + "\n"; 
+				}
+			}
+			fw = new FileWriter(ymlfile);
+			buffw = new BufferedWriter(fw);
+			buffw.write(File, 0, File.length());
+			buffw.close();
+		} catch (Exception e) { System.err.println("Whoops! Error in function writeNewEntryYaml(): " + e.toString()); }
+	}
 }
