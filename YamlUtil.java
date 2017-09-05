@@ -100,7 +100,7 @@ public abstract class YamlUtil {
 					}
 				}
 			}
-			entries[0] = convertLinesToEntry(lines);
+			entries[i] = convertLinesToEntry(lines);
 		}
 		return entries;
 	}
