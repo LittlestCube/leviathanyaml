@@ -13,7 +13,7 @@ public abstract class YamlUtil {
 					}
 				}
 			}
-			throw new Exception("Whoops! Error in function removeItem(): String[][] entry only has one item, or is null.");
+			throw new Exception("Whoops! Error in function getKey(): String[][] entry is null.");
 		} catch (Exception e) {}
 		return -1;
 	}
@@ -27,7 +27,7 @@ public abstract class YamlUtil {
 					}
 				}
 			}
-			throw new Exception("Whoops! Error in function removeItem(): String[][] entry only has one item, or is null.");
+			throw new Exception("Whoops! Error in function getKey(): String[][][] entry is null.");
 		} catch (Exception e) {}
 		return -1;
 	}
