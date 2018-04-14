@@ -139,8 +139,10 @@ public class GenericYaml {
 	
 	public void writeAllLines(String[][] entry) {
 		clearFile();
-		for (int i = 0; i < entry[0].length; i++) {
-			appendLine(entry[0][i], entry[1][i]);
+		if (entry != null) {
+			for (int i = 0; i < entry[0].length; i++) {
+				appendLine(entry[0][i], entry[1][i]);
+			}
 		}
 	}
 }
