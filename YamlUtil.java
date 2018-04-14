@@ -12,6 +12,9 @@ public abstract class YamlUtil {
 				}
 			}
 		}
+		try {
+			throw new Exception("Whoops! Error in function removeItem(): String[][] entry only has one item, or is null.");
+		} catch (Exception e) {}
 		return -1;
 	}
 	
@@ -23,6 +26,9 @@ public abstract class YamlUtil {
 				}
 			}
 		}
+		try {
+			throw new Exception("Whoops! Error in function removeItem(): String[][] entry only has one item, or is null.");
+		} catch (Exception e) {}
 		return -1;
 	}
 	
@@ -111,8 +117,9 @@ public abstract class YamlUtil {
 	
 	public static String[][] removeItem(String[][] entry, int removeNo) {
 		if (entry == null || entry[0].length == 1) {
-			System.out.println("Whoops! Error in function removeItem(): String[][] entry only has one item, or is null.");
-			return entry;
+			try {
+				throw new Exception("Whoops! Error in function removeItem(): String[][] entry only has one item, or is null.");
+			} catch (Exception e) {}
 		} else {
 			String[][] newentry;
 			newentry = new String[2][entry.length - 1];
@@ -125,6 +132,7 @@ public abstract class YamlUtil {
 			}
 			return newentry;
 		}
+		return entry;
 	}
 	
 	public static String[][] appendItem(String[][] entry) {

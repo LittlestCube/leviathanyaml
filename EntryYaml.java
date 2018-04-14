@@ -18,50 +18,6 @@ public class EntryYaml {
 		} catch (Exception e) { System.out.println(e.toString()); }
 	}
 	
-	public String[] readEntryLines(int entryNo) {
-		String line = "";
-		List<String> lines = new ArrayList<String>();
-		try {
-			fr = new FileReader(ymlfile);
-			buffr = new BufferedReader(fr);
-			while (line != null) {
-				line = buffr.readLine();
-				if (line.trim().startsWith(Integer.toString(entryNo))) {
-					line = buffr.readLine();
-					for (line = line; !line.trim().startsWith(Integer.toString(entryNo + 1)); line = buffr.readLine()) {
-						if (!line.trim().startsWith("#")) {
-							lines.add(line + "\n");
-						}
-					}
-				}
-			}
-		} catch (Exception e) { System.out.println(e.toString()); }
-		String[] ret = lines.toArray(new String[lines.size()]);
-		return ret;
-	}
-	
-	public String[] readEntryValues(int entryNo) {
-		String line = "";
-		List<String> lines = new ArrayList<String>();
-		try {
-			fr = new FileReader(ymlfile);
-			buffr = new BufferedReader(fr);
-			while (line != null) {
-				line = buffr.readLine();
-				if (line.trim().startsWith(Integer.toString(entryNo))) {
-					line = buffr.readLine();
-					for (line = line; !line.trim().startsWith(Integer.toString(entryNo + 1)); line = buffr.readLine()) {
-						if (!line.trim().startsWith("#")) {
-							lines.add(line.substring(line.lastIndexOf(":") + 2, line.length()));
-						}
-					}
-				}
-			}
-		} catch (Exception e) { System.out.println(e.toString()); }
-		String[] ret = lines.toArray(new String[lines.size()]);
-		return ret;
-	}
-	
 	public String[][] readEntry(int entryNo) {
 		String line = "";
 		List<String> keys = new ArrayList<String>();
@@ -69,12 +25,12 @@ public class EntryYaml {
 		try {
 			fr = new FileReader(ymlfile);
 			buffr = new BufferedReader(fr);
-			while (line != ":::") {
+			while (true) {
 				String lalalalala = buffr.readLine();
 				if (lalalalala != null) {
 					line = lalalalala;
 				} else {
-					line = ":::";
+					break;
 				}
 				if (line.trim().startsWith(Integer.toString(entryNo) + ":")) {
 					line = buffr.readLine();
