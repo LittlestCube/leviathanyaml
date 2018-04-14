@@ -5,28 +5,28 @@ import java.util.*;
 public abstract class YamlUtil {
 	
 	public static int getKey(String key, String[][] entry) {
-		if (entry != null) {
-			for (int i = 0; i < entry[0].length; i++) {
-				if (entry[0][i].trim().equals(key.trim())) {
-					return i;
+		try {
+			if (entry != null) {
+				for (int i = 0; i < entry[0].length; i++) {
+					if (entry[0][i].trim().equals(key.trim())) {
+						return i;
+					}
 				}
 			}
-		}
-		try {
 			throw new Exception("Whoops! Error in function removeItem(): String[][] entry only has one item, or is null.");
 		} catch (Exception e) {}
 		return -1;
 	}
 	
 	public static int getKey(String key, String[][][] entry) {
-		if (entry != null) {
-			for (int i = 0; i < entry[0][0].length; i++) {
-				if (entry[0][0][i].trim().equals(key.trim())) {
-					return i;
+		try {
+			if (entry != null) {
+				for (int i = 0; i < entry[0][0].length; i++) {
+					if (entry[0][0][i].trim().equals(key.trim())) {
+						return i;
+					}
 				}
 			}
-		}
-		try {
 			throw new Exception("Whoops! Error in function removeItem(): String[][] entry only has one item, or is null.");
 		} catch (Exception e) {}
 		return -1;
