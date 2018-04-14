@@ -105,10 +105,29 @@ public abstract class YamlUtil {
 		return entries;
 	}
 	
+	public static String[][] removeItem(String[][] entry, int removeNo) {
+		if (entry == null || entry[0].length == 1) {
+			System.out.println("Whoops! Error in function removeItem(): String[][] entry only has one item, or is null.");
+			return entry;
+		} else {
+			String[][] newentry;
+			newentry = new String[2][entry.length - 1];
+			for (int i = 0; i < entry.length - 1; i++) {
+				if (i == removeNo) {
+					i++;
+				}
+				newentry[0][i] = entry[0][i];
+				newentry[1][i] = entry[1][i];
+			}
+			return newentry;
+		}
+	}
+	
 	public static String[][] appendItem(String[][] entry) {
 		String[][] newentry;
 		if (entry == null) {
 			newentry = new String[][] { new String[] { "empty" } , new String[] { "empty" } };
+			return newentry;
 		} else {
 			newentry = new String[2][entry[0].length + 1];
 			for (int i = 0; i < entry[0].length; i++) {
@@ -118,22 +137,6 @@ public abstract class YamlUtil {
 			try {
 				newentry[0][newentry[0].length - 1] = "new";
 				newentry[1][newentry[0].length - 1] = "item";
-			} catch (Exception e) { System.out.println("oops" + e.toString()); }
-		}
-		return newentry;
-	}
-	
-	public static String[] appendItem(String[] entry) {
-		String[] newentry;
-		if (entry == null) {
-			newentry = new String[] { "empty" };
-		} else {
-			newentry = new String[entry.length + 1];
-			for (int i = 0; i < entry.length; i++) {
-				newentry[i] = entry[i];
-			}
-			try {
-				newentry[newentry.length - 1] = "empty";
 			} catch (Exception e) { System.out.println("oops" + e.toString()); }
 		}
 		return newentry;
