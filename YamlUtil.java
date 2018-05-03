@@ -97,7 +97,7 @@ public abstract class YamlUtil {
 		String temp;
 		String[] lines;
 		for (int i = 0; i < entries.length; i++) {
-			lines = convertEntryToLines(entries[0]);
+			lines = convertEntryToLines(entries[i]);
 			
 			while (flag) {
 				flag = false;
