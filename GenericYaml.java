@@ -18,10 +18,9 @@ public class GenericYaml {
 	void appendLine(String key, String value) {
 		try {
 			fw = new FileWriter(ymlfile, true);
-			buffw = new BufferedWriter(fw);
 			String newline = key + ": " + value + "\n";
-			buffw.write(newline);
-			buffw.close();
+			fw.write(newline);
+			fw.close();
 		} catch (Exception e) { System.out.println(e.toString()); }
 	}
 	
@@ -50,9 +49,8 @@ public class GenericYaml {
 	public void clearFile() {
 		try {
 			fw = new FileWriter(ymlfile);
-			buffw = new BufferedWriter(fw);
-			buffw.write("");
-			buffw.close();
+			fw.write("");
+			fw.close();
 		} catch (Exception e) { System.out.println(e.toString()); }
 	}
 	
