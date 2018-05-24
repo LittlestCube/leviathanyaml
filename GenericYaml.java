@@ -57,16 +57,11 @@ public class GenericYaml {
 	}
 	
 	public void writeAllLines(String[][] entry) {
-		try {
-			clearFile();
-			fw = new FileWriter(ymlfile);
-			buffw = new BufferedWriter(fw);
-			if (entry != null) {
-				for (int i = 0; i < entry[0].length; i++) {
-					buffw.write(entry[0][i] + ": " +  entry[1][i] + "\n");
-				}
+		clearFile();
+		if (entry != null) {
+			for (int i = 0; i < entry[0].length; i++) {
+				appendLine(entry[0][i], entry[1][i]);
 			}
-			buffw.close();
-		} catch (Exception e) { System.out.println(e.toString()); }
+		}
 	}
 }
