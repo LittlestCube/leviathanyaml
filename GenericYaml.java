@@ -10,7 +10,6 @@ public class GenericYaml {
 	static BufferedReader buffr;
 	static FileWriter fw;
 	static BufferedWriter buffw;
-	static PrintWriter pw;
 	
 	public GenericYaml(File f) {
 		ymlfile = f;
@@ -20,9 +19,8 @@ public class GenericYaml {
 		try {
 			fw = new FileWriter(ymlfile, true);
 			buffw = new BufferedWriter(fw);
-			pw = new PrintWriter(buffw);
 			String newline = key + ": " + value + "\n";
-			pw.print(newline);
+			buffw.write(newline);
 			buffw.close();
 		} catch (Exception e) { System.out.println(e.toString()); }
 	}
@@ -59,11 +57,16 @@ public class GenericYaml {
 	}
 	
 	public void writeAllLines(String[][] entry) {
-		clearFile();
-		if (entry != null) {
-			for (int i = 0; i < entry[0].length; i++) {
-				appendLine(entry[0][i], entry[1][i]);
+		try {
+			clearFile();
+			fw = new FileWriter(ymlfile);
+			buffw = new BufferedWriter(fw);
+			if (entry != null) {
+				for (int i = 0; i < entry[0].length; i++) {
+					buffw.write(entry[0][i] + ": " +  entry[1][i] + "\n");
+				}
 			}
-		}
+			buffw.close();
+		} catch (Exception e) { System.out.println(e.toString()); }
 	}
 }
