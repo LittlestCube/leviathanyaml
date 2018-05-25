@@ -69,7 +69,6 @@ public class EntryYaml {
 	}
 	
 	public void writeEntry(int entryNo, String[][] entry) {
-		clearFile();
 		String line = "";
 		String File = "";
 		String readfile = "";
