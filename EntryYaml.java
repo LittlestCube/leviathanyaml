@@ -69,6 +69,7 @@ public class EntryYaml {
 	}
 	
 	public void writeEntry(int entryNo, String[][] entry) {
+		clearFile();
 		String line = "";
 		String File = "";
 		String readfile = "";
@@ -109,7 +110,17 @@ public class EntryYaml {
 		}
 	}
 	
+	public void clearFile() {
+		try {
+			fw = new FileWriter(ymlfile);
+			buffw = new BufferedWriter(fw);
+			buffw.write("");
+			buffw.close();
+		} catch (Exception e) { System.out.println(e.toString()); }
+	}
+	
 	public void writeAllEntries(String[][][] entry) {
+		clearFile();
 		String line = "";
 		String File = "";
 		String readfile = "";
@@ -161,6 +172,7 @@ public class EntryYaml {
 	}
 	
 	public void writeNewEntryYaml(String[][][] entries) {
+		clearFile();
 		try {
 			String File = "";
 			
