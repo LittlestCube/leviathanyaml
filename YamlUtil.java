@@ -156,7 +156,7 @@ public abstract class YamlUtil {
 	
 	public static String[][][] appendItem(String[][][] entry) {
 		String[][][] newentry;
-		if (entry == null) {
+		if (entry[0] == null) {
 			newentry = new String[][][] { new String[][] { new String[] { "new" } , new String[] { "item" } } };
 			return newentry;
 		} else {
