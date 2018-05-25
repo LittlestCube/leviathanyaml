@@ -12,15 +12,19 @@ public class GenericYaml {
 	static BufferedWriter buffw;
 	
 	public GenericYaml(File f) {
-		ymlfile = f;
+		try {
+			ymlfile = f;
+			fr = new FileReader(ymlfile);
+			buffr = new BufferedReader(fr);
+			fw = new FileWriter(ymlfile);
+			buffw = new BufferedWriter(fw);
+		} catch (Exception e) { System.err.println("Whoops! Error in constructor GenericYaml(): " + e.toString()); }
 	}
 	
 	void appendLine(String key, String value) {
 		try {
-			fw = new FileWriter(ymlfile, true);
-			buffw = new BufferedWriter(fw);
 			String newline = key + ": " + value + "\n";
-			buffw.write(newline);
+			buffw.append(newline);
 			buffw.close();
 		} catch (Exception e) { System.out.println(e.toString()); }
 	}
@@ -29,8 +33,6 @@ public class GenericYaml {
 		List<String> keys = new ArrayList<String>();
 		List<String> values = new ArrayList<String>();
 		try {
-			fr = new FileReader(ymlfile);
-			buffr = new BufferedReader(fr);
 			String line = "";
 			while (line != null) {
 				line = buffr.readLine();
@@ -49,8 +51,6 @@ public class GenericYaml {
 	
 	public void clearFile() {
 		try {
-			fw = new FileWriter(ymlfile);
-			buffw = new BufferedWriter(fw);
 			buffw.write("");
 			buffw.close();
 		} catch (Exception e) { System.out.println(e.toString()); }
