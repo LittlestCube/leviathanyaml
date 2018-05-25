@@ -17,12 +17,11 @@ public class GenericYaml {
 	
 	void appendLine(String key, String value) {
 		try {
-			fw = new FileWriter(ymlfile.getAbsoluteFile(), true);
+			fw = new FileWriter(ymlfile, true);
 			buffw = new BufferedWriter(fw);
 			String newline = key + ": " + value + "\n";
 			buffw.write(newline);
 			buffw.close();
-			fw.close();
 		} catch (Exception e) { System.out.println(e.toString()); }
 	}
 	
