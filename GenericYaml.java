@@ -22,6 +22,7 @@ public class GenericYaml {
 			String newline = key + ": " + value + "\n";
 			buffw.write(newline);
 			buffw.close();
+			fw.close();
 		} catch (Exception e) { System.out.println(e.toString()); }
 	}
 	
