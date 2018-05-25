@@ -17,7 +17,7 @@ public class GenericYaml {
 	
 	void appendLine(String key, String value) {
 		try {
-			fw = new FileWriter(ymlfile);
+			fw = new FileWriter(ymlfile, true);
 			buffw = new BufferedWriter(fw);
 			String newline = key + ": " + value + "\n";
 			buffw.write(newline);
