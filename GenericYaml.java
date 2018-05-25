@@ -20,7 +20,7 @@ public class GenericYaml {
 			fw = new FileWriter(ymlfile);
 			buffw = new BufferedWriter(fw);
 			String newline = key + ": " + value + "\n";
-			buffw.append(newline);
+			buffw.write(newline);
 			buffw.close();
 		} catch (Exception e) { System.out.println(e.toString()); }
 	}
