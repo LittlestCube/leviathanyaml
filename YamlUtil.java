@@ -161,7 +161,7 @@ public abstract class YamlUtil {
 			return newentry;
 		} else {
 			newentry = new String[0][2][entry[0].length + 1];
-			for (int i = 0; i < entry[0].length; i++) {
+			for (int i = 0; i < entry[0][0].length; i++) {
 				newentry[0][0][i] = entry[0][0][i];
 				newentry[0][1][i] = entry[0][1][i];
 			}
