@@ -6,6 +6,7 @@ import java.util.*;
 public class GenericYaml {
 	
 	File ymlfile;
+	String[][] entry;
 	FileReader fr;
 	BufferedReader buffr;
 	FileWriter fw;
@@ -13,6 +14,35 @@ public class GenericYaml {
 	
 	public GenericYaml(File f) {
 		ymlfile = f;
+		readAllLines();
+	}
+	
+	public String getKey(String key) {
+		try {
+			if (entry != null) {
+				for (int i = 0; i < entry[0].length; i++) {
+					if (entry[0][i].trim().equals(key.trim())) {
+						return entry[1][i];
+					}
+				}
+			}
+			throw new Exception("Whoops! Error in function getKey(): String[][] entry is null.");
+		} catch (Exception e) {}
+		return null;
+	}
+	
+	public String setKey(String key, String value) {
+		try {
+			if (entry != null) {
+				for (int i = 0; i < entry[0].length; i++) {
+					if (entry[0][i].trim().equals(key.trim())) {
+						entry[1][i] = value;
+					}
+				}
+			}
+			throw new Exception("Whoops! Error in function setKey(): String[][] entry is null.");
+		} catch (Exception e) {}
+		return null;
 	}
 	
 	void appendLine(String key, String value) {
@@ -40,11 +70,13 @@ public class GenericYaml {
 			if (keys.isEmpty()) {
 				return null;
 			}
+			buffr.close();
 		} catch (Exception e) { System.out.println(e.toString()); }
 		String[] a1 = keys.toArray(new String[keys.size()]);
 		String[] a2 = values.toArray(new String[values.size()]);
-		String[][] ret = { a1, a2 };
-		return ret;
+		entry = new String[a1.length][a2.length];
+		System.arraycopy(new String[][] { a1, a2 }, 0, entry, 0, entry.length);
+		return entry;
 	}
 	
 	public void clearFile() {
@@ -56,7 +88,7 @@ public class GenericYaml {
 		} catch (Exception e) { System.out.println(e.toString()); }
 	}
 	
-	public void writeAllLines(String[][] entry) {
+	public void saveEntry(String[][] entry) {
 		clearFile();
 		if (entry != null) {
 			for (int i = 0; i < entry[0].length; i++) {
