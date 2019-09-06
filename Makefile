@@ -1,4 +1,6 @@
-all:
+all: dev
+
+dev:
 	javac *.java
 
 clean:

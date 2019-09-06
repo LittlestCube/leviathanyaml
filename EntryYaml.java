@@ -7,11 +7,11 @@ import leviathanyaml.YamlUtil;
 
 public class EntryYaml {
 	
-	static File ymlfile;
-	static FileReader fr;
-	static BufferedReader buffr;
-	static FileWriter fw;
-	static BufferedWriter buffw;
+	File ymlfile;
+	FileReader fr;
+	BufferedReader buffr;
+	FileWriter fw;
+	BufferedWriter buffw;
 	
 	public EntryYaml(File f) {
 		try {

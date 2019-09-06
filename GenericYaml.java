@@ -5,11 +5,11 @@ import java.util.*;
 
 public class GenericYaml {
 	
-	static File ymlfile;
-	static FileReader fr;
-	static BufferedReader buffr;
-	static FileWriter fw;
-	static BufferedWriter buffw;
+	File ymlfile;
+	FileReader fr;
+	BufferedReader buffr;
+	FileWriter fw;
+	BufferedWriter buffw;
 	
 	public GenericYaml(File f) {
 		ymlfile = f;
