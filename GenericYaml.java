@@ -17,24 +17,18 @@ public class GenericYaml {
 		if (!ymlfile.exists()) {
 			clearFile();
 		}
-		readAllLines();
+		entry = readAllLines();
 	}
 	
 	public String getKey(String key) {
 		try {
-			if (entry != null) {
-				for (int i = 0; i < entry[0].length; i++) {
-					if (entry[0][i].trim().equals(key.trim())) {
-						return entry[1][i];
-					}
-				}
-			}
-			throw new Exception("Whoops! Error in function getKey(): String[][] entry is null.");
+			entry = readAllLines();
+			return entry[1][YamlUtil.getKey(key, entry)];
 		} catch (Exception e) { e.printStackTrace(); }
 		return null;
 	}
 	
-	public String setKey(String key, String value) {
+	public void setKey(String key, String value) {
 		try {
 			if (entry != null) {
 				for (int i = 0; i < entry[0].length; i++) {
@@ -43,9 +37,7 @@ public class GenericYaml {
 					}
 				}
 			}
-			throw new Exception("Whoops! Error in function setKey(): String[][] entry is null.");
 		} catch (Exception e) { e.printStackTrace(); }
-		return null;
 	}
 	
 	void appendLine(String key, String value) {
@@ -55,7 +47,7 @@ public class GenericYaml {
 			String newline = key + ": " + value + "\n";
 			buffw.write(newline);
 			buffw.close();
-		} catch (Exception e) { System.out.println(e.toString()); }
+		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
 	public String[][] readAllLines() {
@@ -74,11 +66,11 @@ public class GenericYaml {
 				return null;
 			}
 			buffr.close();
-		} catch (Exception e) { System.out.println(e.toString()); }
-		String[] a1 = keys.toArray(new String[keys.size()]);
-		String[] a2 = values.toArray(new String[values.size()]);
-		entry = new String[a1.length][a2.length];
-		System.arraycopy(new String[][] { a1, a2 }, 0, entry, 0, entry.length);
+			String[] a1 = keys.toArray(new String[keys.size()]);
+			String[] a2 = values.toArray(new String[values.size()]);
+			entry = new String[a1.length][a2.length];
+			System.arraycopy(new String[][] { a1, a2 }, 0, entry, 0, entry.length);
+		} catch (Exception e) { e.printStackTrace(); }
 		return entry;
 	}
 	
@@ -88,7 +80,16 @@ public class GenericYaml {
 			buffw = new BufferedWriter(fw);
 			buffw.write("");
 			buffw.close();
-		} catch (Exception e) { System.out.println(e.toString()); }
+		} catch (Exception e) { e.printStackTrace(); }
+	}
+	
+	public void appendItem(String key, String value) {
+		List<String> keys = new ArrayList<String>(Arrays.asList(entry[0]));
+		List<String> values = new ArrayList<String>(Arrays.asList(entry[1]));
+		keys.add(key);
+		values.add(value);
+		entry[0] = keys.toArray(new String[keys.size()]);
+		entry[1] = values.toArray(new String[values.size()]);
 	}
 	
 	public void saveEntry(String[][] entry) {
