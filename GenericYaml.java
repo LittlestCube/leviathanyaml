@@ -14,6 +14,9 @@ public class GenericYaml {
 	
 	public GenericYaml(File f) {
 		ymlfile = f;
+		if (!ymlfile.exists()) {
+			clearFile();
+		}
 		readAllLines();
 	}
 	
@@ -27,7 +30,7 @@ public class GenericYaml {
 				}
 			}
 			throw new Exception("Whoops! Error in function getKey(): String[][] entry is null.");
-		} catch (Exception e) {}
+		} catch (Exception e) { e.printStackTrace(); }
 		return null;
 	}
 	
@@ -41,7 +44,7 @@ public class GenericYaml {
 				}
 			}
 			throw new Exception("Whoops! Error in function setKey(): String[][] entry is null.");
-		} catch (Exception e) {}
+		} catch (Exception e) { e.printStackTrace(); }
 		return null;
 	}
 	
