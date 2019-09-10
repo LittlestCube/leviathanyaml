@@ -22,7 +22,7 @@ public class GenericYaml {
 	
 	public String getKey(String key) {
 		try {
-			entry = readAllLines();
+			readAllLines();
 			return entry[1][YamlUtil.getKey(key, entry)];
 		} catch (Exception e) { e.printStackTrace(); }
 		return null;
@@ -30,12 +30,18 @@ public class GenericYaml {
 	
 	public void setKey(String key, String value) {
 		try {
-			if (entry != null) {
-				for (int i = 0; i < entry[0].length; i++) {
-					if (entry[0][i].trim().equals(key.trim())) {
-						entry[1][i] = value;
-					}
-				}
+			readAllLines();
+			int kline = YamlUtil.getKey(key, entry);
+			if (kline == -1) {
+				List<String> keys = new ArrayList<String>(Arrays.asList(entry[0]));
+				List<String> values = new ArrayList<String>(Arrays.asList(entry[1]));
+				keys.add(key);
+				values.add(value);
+				entry[0] = keys.toArray(new String[keys.size()]);
+				entry[1] = values.toArray(new String[values.size()]);
+			} else {
+				entry[0][kline] = key;
+				entry[1][kline] = value;
 			}
 		} catch (Exception e) { e.printStackTrace(); }
 	}
@@ -81,15 +87,6 @@ public class GenericYaml {
 			buffw.write("");
 			buffw.close();
 		} catch (Exception e) { e.printStackTrace(); }
-	}
-	
-	public void appendItem(String key, String value) {
-		List<String> keys = new ArrayList<String>(Arrays.asList(entry[0]));
-		List<String> values = new ArrayList<String>(Arrays.asList(entry[1]));
-		keys.add(key);
-		values.add(value);
-		entry[0] = keys.toArray(new String[keys.size()]);
-		entry[1] = values.toArray(new String[values.size()]);
 	}
 	
 	public void saveEntry(String[][] entry) {
