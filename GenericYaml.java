@@ -17,8 +17,6 @@ public class GenericYaml {
 		ymlfile = f;
 		if (!ymlfile.exists()) {
 			clearFile();
-		} else {
-			entry = readAllLines();
 		}
 	}
 	
@@ -33,7 +31,6 @@ public class GenericYaml {
 	public void setKey(String key, String value) {
 		try {
 			int kline = YamlUtil.getKey(key, entry);
-			System.out.println(String.valueOf(kline));
 			if (kline == -1) {
 				appendItem(key, value);
 			} else {
