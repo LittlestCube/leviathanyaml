@@ -17,8 +17,9 @@ public class GenericYaml {
 		ymlfile = f;
 		if (!ymlfile.exists()) {
 			clearFile();
+		} else {
+			entry = readAllLines();
 		}
-		entry = readAllLines();
 	}
 	
 	public String getKey(String key) {
@@ -32,18 +33,23 @@ public class GenericYaml {
 	public void setKey(String key, String value) {
 		try {
 			int kline = YamlUtil.getKey(key, entry);
+			System.out.println(String.valueOf(kline));
 			if (kline == -1) {
-				List<String> keys = new ArrayList<String>(Arrays.asList(entry[0]));
-				List<String> values = new ArrayList<String>(Arrays.asList(entry[1]));
-				keys.add(key);
-				values.add(value);
-				entry[0] = keys.toArray(new String[keys.size()]);
-				entry[1] = values.toArray(new String[values.size()]);
+				appendItem(key, value);
 			} else {
 				entry[0][kline] = key;
 				entry[1][kline] = value;
 			}
 		} catch (Exception e) { e.printStackTrace(); }
+	}
+	
+	public void appendItem(String key, String value) {
+		List<String> keys = new ArrayList<String>(Arrays.asList(entry[0]));
+		List<String> values = new ArrayList<String>(Arrays.asList(entry[1]));
+		keys.add(key);
+		values.add(value);
+		entry[0] = keys.toArray(new String[keys.size()]);
+		entry[1] = values.toArray(new String[values.size()]);
 	}
 	
 	void appendLine(String key, String value) {
@@ -60,22 +66,26 @@ public class GenericYaml {
 		List<String> keys = new ArrayList<String>();
 		List<String> values = new ArrayList<String>();
 		try {
-			fr = new FileReader(ymlfile);
-			buffr = new BufferedReader(fr);
-			String line = "";
-			while (line != null) {
-				line = buffr.readLine();
-				keys.add(line.trim().substring(0, line.lastIndexOf(":")));
-				values.add(line.trim().substring(line.lastIndexOf(":") + 2, line.length()));
-			}
-			if (keys.isEmpty()) {
-				return null;
-			}
-			buffr.close();
-			String[] a1 = keys.toArray(new String[keys.size()]);
-			String[] a2 = values.toArray(new String[values.size()]);
-			entry = new String[a1.length][a2.length];
-			System.arraycopy(new String[][] { a1, a2 }, 0, entry, 0, entry.length);
+			if (ymlfile.exists()) {
+				fr = new FileReader(ymlfile);
+				buffr = new BufferedReader(fr);
+				String line = "";
+				while (line != null) {
+					line = buffr.readLine();
+					keys.add(line.trim().substring(0, line.lastIndexOf(":")));
+					values.add(line.trim().substring(line.lastIndexOf(":") + 2, line.length()));
+				}
+				if (keys.isEmpty()) {
+					return null;
+				}
+				buffr.close();
+				String[] a1 = keys.toArray(new String[keys.size()]);
+				String[] a2 = values.toArray(new String[values.size()]);
+				entry = new String[a1.length][a2.length];
+				System.arraycopy(new String[][] { a1, a2 }, 0, entry, 0, entry.length);
+			} else {
+				entry = new String[2][0];
+			}	
 		} catch (Exception e) { e.printStackTrace(); }
 		return entry;
 	}
