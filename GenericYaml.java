@@ -30,23 +30,17 @@ public class GenericYaml {
 	
 	public void setKey(String key, String value) {
 		try {
+			readAllLines();
 			int kline = YamlUtil.getKey(key, entry);
 			if (kline == -1) {
-				appendItem(key, value);
+				appendLine(key, value);
+				readAllLines();
 			} else {
 				entry[0][kline] = key;
 				entry[1][kline] = value;
+				writeAllLines();
 			}
 		} catch (Exception e) { e.printStackTrace(); }
-	}
-	
-	public void appendItem(String key, String value) {
-		List<String> keys = new ArrayList<String>(Arrays.asList(entry[0]));
-		List<String> values = new ArrayList<String>(Arrays.asList(entry[1]));
-		keys.add(key);
-		values.add(value);
-		entry[0] = keys.toArray(new String[keys.size()]);
-		entry[1] = values.toArray(new String[values.size()]);
 	}
 	
 	void appendLine(String key, String value) {
@@ -73,7 +67,7 @@ public class GenericYaml {
 					values.add(line.trim().substring(line.lastIndexOf(":") + 2, line.length()));
 				}
 				if (keys.isEmpty()) {
-					return null;
+					return new String[1][1];
 				}
 				buffr.close();
 				String[] a1 = keys.toArray(new String[keys.size()]);
@@ -96,7 +90,7 @@ public class GenericYaml {
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
-	public void writeAllLines(String[][] entry) {
+	public void writeAllLines() {
 		clearFile();
 		if (entry != null) {
 			for (int i = 0; i < entry[0].length; i++) {
