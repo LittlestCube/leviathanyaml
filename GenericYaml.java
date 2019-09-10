@@ -5,8 +5,9 @@ import java.util.*;
 
 public class GenericYaml {
 	
+	public String[][] entry;
+	
 	File ymlfile;
-	String[][] entry;
 	FileReader fr;
 	BufferedReader buffr;
 	FileWriter fw;
