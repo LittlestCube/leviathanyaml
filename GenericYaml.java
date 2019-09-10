@@ -30,7 +30,6 @@ public class GenericYaml {
 	
 	public void setKey(String key, String value) {
 		try {
-			readAllLines();
 			int kline = YamlUtil.getKey(key, entry);
 			if (kline == -1) {
 				List<String> keys = new ArrayList<String>(Arrays.asList(entry[0]));
@@ -89,7 +88,7 @@ public class GenericYaml {
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
-	public void saveEntry(String[][] entry) {
+	public void writeAllLines(String[][] entry) {
 		clearFile();
 		if (entry != null) {
 			for (int i = 0; i < entry[0].length; i++) {
