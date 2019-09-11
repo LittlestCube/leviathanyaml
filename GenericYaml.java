@@ -20,6 +20,11 @@ public class GenericYaml {
 		}
 	}
 	
+	public void initEntry(int len) {
+		entry =
+		 new String[2][len];
+	}
+	
 	public String getKey(String key) {
 		try {
 			readAllLines();
