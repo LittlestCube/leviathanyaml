@@ -135,7 +135,17 @@ public abstract class YamlUtil {
 		return entry;
 	}
 	
-	public static String[][] appendItem(String[][] entry) {
+	public static String[][] appendItem(String key, String value, String[][] entry) {
+		List<String> keys = new ArrayList<String>(Arrays.asList(entry[0]));
+		List<String> values = new ArrayList<String>(Arrays.asList(entry[1]));
+		keys.add(key);
+		values.add(value);
+		String[] a1 = keys.toArray(new String[keys.size()]);
+		String[] a2 = values.toArray(new String[values.size()]);
+		return new String[][]{ a1, a2 };
+	}
+	
+	public static String[][] _appendItem(String[][] entry) {
 		String[][] newentry;
 		if (entry == null) {
 			newentry = new String[][] { new String[] { "new" } , new String[] { "item" } };

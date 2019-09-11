@@ -35,21 +35,33 @@ public class GenericYaml {
 	public void setKey(String key, String value) {
 		try {
 			readAllLines();
-			int kline = YamlUtil.getKey(key, en);
-			if (kline == -1) {
-				YamlUtil.appendItem(en);
-				setValue(key, value);
+			if (en == null) {
+				en = new String[2][1];
+				en[0][0] = key;
+				en[1][0] = value;
 			} else {
-				en[0][kline] = key;
-				en[1][kline] = value;
-				writeAllLines();
+				int kline = YamlUtil.getKey(key, en);
+				if (kline != -1) {
+					en[0][kline] = key;
+					en[1][kline] = value;
+				} else {
+					appendItem(key, value);
+				}
 			}
+			writeAllLines();
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
+	public void appendItem(String key, String value) {
+		en = YamlUtil.appendItem(key, value, en);
+	}
+	
 	void setValue(String key, String value) {
-		en[0][YamlUtil.getKey(key, en)] = key;
-		en[1][YamlUtil.getKey(key, en)] = value;
+		try {
+			int kline = YamlUtil.getKey(key, en);
+			en[0][kline] = key;
+			en[1][kline] = value;
+		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
 	public String[][] readAllLines() {
@@ -74,8 +86,8 @@ public class GenericYaml {
 				buffr.close();
 				String[] a1 = keys.toArray(new String[keys.size()]);
 				String[] a2 = values.toArray(new String[values.size()]);
-				en = new String[a1.length][a2.length];
-				System.arraycopy(new String[][] { a1, a2 }, 0, en, 0, 2);
+				String[][] ent = { a1, a2 };
+				en = ent;
 			}
 		} catch (Exception e) { e.printStackTrace(); }
 		return en;
