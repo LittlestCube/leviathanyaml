@@ -5,7 +5,7 @@ import java.util.*;
 
 public class GenericYaml {
 	
-	public String[][] entry;
+	public String[][] en;
 	
 	File ymlfile;
 	FileReader fr;
@@ -21,16 +21,20 @@ public class GenericYaml {
 	}
 	
 	public void initEntry(int len) {
-		entry =
-		 new String[2][len];
+		en = new String[2][len];
 	}
 	
 	public String getKey(String key) {
 		try {
 			readAllLines();
-			return entry[1][YamlUtil.getKey(key, entry)];
+			return en[1][YamlUtil.getKey(key, en)];
 		} catch (Exception e) { e.printStackTrace(); }
 		return null;
+	}
+	
+	public void addValue(String key, String value, int index) {
+		en[0][index] = key;
+		en[1][index] = value;
 	}
 	
 	public String[][] readAllLines() {
@@ -52,11 +56,11 @@ public class GenericYaml {
 				buffr.close();
 				String[] a1 = keys.toArray(new String[keys.size()]);
 				String[] a2 = values.toArray(new String[values.size()]);
-				entry = new String[a1.length][a2.length];
-				System.arraycopy(new String[][] { a1, a2 }, 0, entry, 0, entry.length);
+				en = new String[a1.length][a2.length];
+				System.arraycopy(new String[][] { a1, a2 }, 0, en, 0, en.length);
 			}
 		} catch (Exception e) { e.printStackTrace(); }
-		return entry;
+		return en;
 	}
 	
 	public void clearFile() {
@@ -70,9 +74,9 @@ public class GenericYaml {
 	
 	public void writeAllLines() {
 		clearFile();
-		if (entry != null) {
-			for (int i = 0; i < entry[0].length; i++) {
-				appendLine(entry[0][i], entry[1][i]);
+		if (en != null) {
+			for (int i = 0; i < en[0].length; i++) {
+				appendLine(en[0][i], en[1][i]);
 			}
 		}
 	}
