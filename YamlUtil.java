@@ -8,7 +8,7 @@ public abstract class YamlUtil {
 		try {
 			if (entry != null) {
 				for (int i = 0; i < entry[0].length; i++) {
-					if (entry[0][i].startsWith(key)) {
+					if (entry[0][i].equals(key)) {
 						return i;
 					}
 				}
@@ -22,7 +22,7 @@ public abstract class YamlUtil {
 		try {
 			if (entry != null) {
 				for (int i = 0; i < entry[0][0].length; i++) {
-					if (entry[0][0][i].startsWith(key)) {
+					if (entry[0][0][i].equals(key)) {
 						return i;
 					}
 				}

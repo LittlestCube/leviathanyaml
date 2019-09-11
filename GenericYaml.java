@@ -28,31 +28,6 @@ public class GenericYaml {
 		return null;
 	}
 	
-	public void setKey(String key, String value) {
-		try {
-			readAllLines();
-			int kline = YamlUtil.getKey(key, entry);
-			if (kline == -1) {
-				appendLine(key, value);
-				readAllLines();
-			} else {
-				entry[0][kline] = key;
-				entry[1][kline] = value;
-				writeAllLines();
-			}
-		} catch (Exception e) { e.printStackTrace(); }
-	}
-	
-	void appendLine(String key, String value) {
-		try {
-			fw = new FileWriter(ymlfile, true);
-			buffw = new BufferedWriter(fw);
-			String newline = key + ": " + value + "\n";
-			buffw.write(newline);
-			buffw.close();
-		} catch (Exception e) { e.printStackTrace(); }
-	}
-	
 	public String[][] readAllLines() {
 		List<String> keys = new ArrayList<String>();
 		List<String> values = new ArrayList<String>();
@@ -95,5 +70,15 @@ public class GenericYaml {
 				appendLine(entry[0][i], entry[1][i]);
 			}
 		}
+	}
+	
+	void appendLine(String key, String value) {
+		try {
+			fw = new FileWriter(ymlfile, true);
+			buffw = new BufferedWriter(fw);
+			String newline = key + ": " + value + "\n";
+			buffw.write(newline);
+			buffw.close();
+		} catch (Exception e) { e.printStackTrace(); }
 	}
 }
