@@ -32,9 +32,24 @@ public class GenericYaml {
 		return null;
 	}
 	
-	public void addValue(String key, String value, int index) {
-		en[0][index] = key;
-		en[1][index] = value;
+	public void setKey(String key, String value) {
+		try {
+			readAllLines();
+			int kline = YamlUtil.getKey(key, en);
+			if (kline == -1) {
+				YamlUtil.appendItem(en);
+				setValue(key, value);
+			} else {
+				en[0][kline] = key;
+				en[1][kline] = value;
+				writeAllLines();
+			}
+		} catch (Exception e) { e.printStackTrace(); }
+	}
+	
+	void setValue(String key, String value) {
+		en[0][YamlUtil.getKey(key, en)] = key;
+		en[1][YamlUtil.getKey(key, en)] = value;
 	}
 	
 	public String[][] readAllLines() {
