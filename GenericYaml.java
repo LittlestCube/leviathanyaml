@@ -47,6 +47,9 @@ public class GenericYaml {
 				String line = "";
 				while (line != null) {
 					line = buffr.readLine();
+					if (line == null) {
+						break;
+					}
 					keys.add(line.substring(0, line.lastIndexOf(":")));
 					values.add(line.substring(line.lastIndexOf(":") + 2, line.length()));
 				}
@@ -57,7 +60,7 @@ public class GenericYaml {
 				String[] a1 = keys.toArray(new String[keys.size()]);
 				String[] a2 = values.toArray(new String[values.size()]);
 				en = new String[a1.length][a2.length];
-				System.arraycopy(new String[][] { a1, a2 }, 0, en, 0, en.length);
+				System.arraycopy(new String[][] { a1, a2 }, 0, en, 0, 2);
 			}
 		} catch (Exception e) { e.printStackTrace(); }
 		return en;
