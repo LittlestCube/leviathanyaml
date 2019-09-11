@@ -67,16 +67,14 @@ public class GenericYaml {
 					values.add(line.trim().substring(line.lastIndexOf(":") + 2, line.length()));
 				}
 				if (keys.isEmpty()) {
-					return new String[1][1];
+					return null;
 				}
 				buffr.close();
 				String[] a1 = keys.toArray(new String[keys.size()]);
 				String[] a2 = values.toArray(new String[values.size()]);
 				entry = new String[a1.length][a2.length];
 				System.arraycopy(new String[][] { a1, a2 }, 0, entry, 0, entry.length);
-			} else {
-				entry = new String[2][0];
-			}	
+			}
 		} catch (Exception e) { e.printStackTrace(); }
 		return entry;
 	}
