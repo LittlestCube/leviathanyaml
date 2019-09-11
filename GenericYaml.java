@@ -47,8 +47,8 @@ public class GenericYaml {
 				String line = "";
 				while (line != null) {
 					line = buffr.readLine();
-					keys.add(line.trim().substring(0, line.lastIndexOf(":")));
-					values.add(line.trim().substring(line.lastIndexOf(":") + 2, line.length()));
+					keys.add(line.substring(0, line.lastIndexOf(":")));
+					values.add(line.substring(line.lastIndexOf(":") + 2, line.length()));
 				}
 				if (keys.isEmpty()) {
 					return null;
