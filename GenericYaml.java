@@ -20,8 +20,13 @@ public class GenericYaml {
 		}
 	}
 	
-	public void initEntry(int len) {
-		en = new String[2][len];
+	public boolean keyExists(String key) {
+		boolean ret = false;
+		readAllLines();
+		if (YamlUtil.getKey(key, en) != -1) {
+			ret = true;
+		}
+		return ret;
 	}
 	
 	public String getKey(String key) {
@@ -118,6 +123,7 @@ public class GenericYaml {
 			String newline = key + ": " + value + "\n";
 			buffw.write(newline);
 			buffw.close();
+			YamlUtil.sortArray(en);
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 }
