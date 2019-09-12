@@ -57,18 +57,6 @@ public class GenericYaml {
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
-	public void appendItem(String key, String value) {
-		en = YamlUtil.appendItem(key, value, en);
-	}
-	
-	void setValue(String key, String value) {
-		try {
-			int kline = YamlUtil.getKey(key, en);
-			en[0][kline] = key;
-			en[1][kline] = value;
-		} catch (Exception e) { e.printStackTrace(); }
-	}
-	
 	public String[][] readAllLines() {
 		List<String> keys = new ArrayList<String>();
 		List<String> values = new ArrayList<String>();
@@ -98,15 +86,6 @@ public class GenericYaml {
 		return en;
 	}
 	
-	public void clearFile() {
-		try {
-			fw = new FileWriter(ymlfile);
-			buffw = new BufferedWriter(fw);
-			buffw.write("");
-			buffw.close();
-		} catch (Exception e) { e.printStackTrace(); }
-	}
-	
 	public void writeAllLines() {
 		clearFile();
 		if (en != null) {
@@ -114,6 +93,27 @@ public class GenericYaml {
 				appendLine(en[0][i], en[1][i]);
 			}
 		}
+	}
+	
+	public void appendItem(String key, String value) {
+		en = YamlUtil.appendItem(key, value, en);
+	}
+	
+	void setValue(String key, String value) {
+		try {
+			int kline = YamlUtil.getKey(key, en);
+			en[0][kline] = key;
+			en[1][kline] = value;
+		} catch (Exception e) { e.printStackTrace(); }
+	}
+	
+	public void clearFile() {
+		try {
+			fw = new FileWriter(ymlfile);
+			buffw = new BufferedWriter(fw);
+			buffw.write("");
+			buffw.close();
+		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
 	void appendLine(String key, String value) {
