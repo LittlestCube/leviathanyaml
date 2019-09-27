@@ -99,6 +99,10 @@ public class GenericYaml {
 		en = YamlUtil.appendItem(key, value, en);
 	}
 	
+	public void delete() {
+		ymlfile.delete();
+	}
+	
 	void setValue(String key, String value) {
 		try {
 			int kline = YamlUtil.getKey(key, en);
@@ -107,7 +111,7 @@ public class GenericYaml {
 		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
-	public void clearFile() {
+	void clearFile() {
 		try {
 			fw = new FileWriter(ymlfile);
 			buffw = new BufferedWriter(fw);
